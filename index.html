@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>그리팅 → 나인하이어 데이터 이관 안내</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
   --bg:#f7f8fa; --card:#fff; --ink:#1c2230; --sub:#5b6577; --line:#e3e7ee;
@@ -38,7 +39,8 @@ h1{font-size:28px;line-height:1.35;margin:6px 0 12px;word-break:keep-all}
 details.sec{scroll-margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
 details.sec>summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;align-items:center;gap:14px;font-size:20px;font-weight:800}
 details.sec>summary::-webkit-details-marker{display:none}
-.num{flex:none;width:36px;height:36px;border-radius:10px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:17px;font-weight:800}
+.num{flex:none;min-width:30px;color:var(--brand);font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.num::before{content:"0"}
 .sec-title{flex:1}
 .sec-hint{font-size:13px;font-weight:500;color:var(--sub);display:block;margin-top:1px}
 .chev{flex:none;width:20px;height:20px;transition:transform .2s;color:var(--sub)}
@@ -79,11 +81,12 @@ tr:last-child td{border-bottom:0}
 
 /* steps */
 .steps{list-style:none;padding:0 0 0 14px;margin:14px 0 12px 10px;counter-reset:s;border-left:2px solid var(--line)}
-.steps li{display:grid;grid-template-columns:24px 1fr;gap:2px 10px;padding:10px 0}
-.steps li::before{counter-increment:s;content:counter(s);width:22px;height:22px;border-radius:6px;background:var(--note-bg);color:var(--sub);border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:700;grid-row:span 2}
+.steps>li{display:grid;grid-template-columns:24px 1fr;gap:2px 10px;padding:10px 0}
+.steps>li::before{counter-increment:s;content:counter(s);width:22px;height:22px;border-radius:6px;background:var(--note-bg);color:var(--sub);border:1px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:700;grid-row:span 2}
 .steps b{font-size:15.5px;display:flex;align-items:center;flex-wrap:wrap;gap:2px 0}
 .steps b{display:block}
 .who{font-size:14px;color:var(--sub);margin-top:1px}
+.co.step-co{margin:8px 0 2px;font-size:13.5px}
 .tags{margin-left:8px}
 .tags .tag{margin:0 4px 0 0}
 .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;margin-right:6px;vertical-align:1px}
@@ -113,7 +116,45 @@ pre.form{white-space:pre-wrap;background:var(--note-bg);border:1px solid var(--l
 .sn::after{content:"."}
 .sub>*:last-child{margin-bottom:0}
 .sub .tw{background:var(--card)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .num,:root:not([data-theme="light"]) .chip.key{color:#1b1440}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.key{color:#1b1440}}
+
+/* v2: 페이지 핵심 배너 · 한눈에 보기 · 단계 안 경고 */
+.key-banner{background:var(--warn-bg);border-radius:12px;padding:16px 20px;margin:22px 0 0}
+.key-banner b{display:block;font-size:17px;color:var(--warn);margin-bottom:2px}
+.key-banner p{margin:0;font-size:15px}
+.glance{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 20px;margin:14px 0 0}
+.g-row{display:grid;grid-template-columns:96px 1fr;gap:4px 16px;padding:14px 0;border-top:1px solid var(--line)}
+.g-row:first-of-type{border-top:0}
+.g-k{font-size:14px;font-weight:700;color:var(--sub);padding-top:1px}
+.g-v{font-size:15px}
+.todo{list-style:none;margin:0;padding:0;counter-reset:t}
+.todo li{display:flex;justify-content:space-between;gap:4px 16px;flex-wrap:wrap;padding:3px 0}
+.todo li>span::before{counter-increment:t;content:counter(t) ". ";color:var(--brand);font-weight:700}
+.todo em{font-style:normal;font-size:13.5px;color:var(--sub);white-space:nowrap}
+.g-v a{white-space:nowrap}
+.role{font-size:13px;font-weight:500;color:var(--sub);margin-left:8px}
+.inline-warn{border-left:3px solid var(--warn);padding:2px 0 2px 12px;margin:10px 0 2px;font-size:14px}
+.inline-warn b{color:var(--warn);margin-right:6px}
+.aside{font-size:13.5px;color:var(--sub)}
+@media (max-width:520px){.g-row{grid-template-columns:1fr}.glance{padding:4px 16px}}
+
+/* v2: 섹션 안 — 카드 안 카드 제거, 경고는 왼쪽 세로줄, 빨강 박스는 파기 기본값만, 배지는 점+글자 */
+.sub{background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:20px 0 4px;margin:18px 0 0}
+.body>.sub:first-child{border-top:0;padding-top:4px;margin-top:0}
+.sub .tw{background:var(--card)}
+.co{display:block;padding:2px 0 2px 14px;margin:12px 0;border:0;border-left:3px solid var(--line);border-radius:0;background:none;font-size:14px}
+.co svg{display:none}
+.co.warn{background:none;border-left-color:var(--warn)}
+.co.warn p:first-child>b{color:var(--warn)}
+.co.note{background:none;border-left-color:var(--line);color:var(--sub)}
+.co.danger{display:flex;gap:8px;padding:10px 14px;border:1px solid var(--danger-line);border-radius:8px;background:var(--danger-bg)}
+.co.danger svg{display:block}
+.co.danger b{color:var(--danger)}
+.b,.b.ok,.b.chg,.b.new,.b.no{background:none!important;padding:0;border-radius:0;font-size:13px}
+.b::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+.reply{background:none;border-left:3px solid var(--brand);border-radius:0;padding:2px 0 2px 14px}
+.chip,.chip.key{background:none;border:0;padding:0;border-radius:0;color:var(--brand);font-weight:700;font-size:inherit}
+.reply-b .chip:not(.key)+.chip:not(.key)::before{content:" / ";color:var(--sub);font-weight:400}
 
 .faq details{border-bottom:1px solid var(--line)}
 .faq details:last-child{border-bottom:0}
@@ -128,6 +169,60 @@ pre.form{white-space:pre-wrap;background:var(--note-bg);border:1px solid var(--l
 a{color:var(--brand)}
 footer{color:var(--sub);font-size:13px;text-align:center;margin-top:28px}
 @media (max-width:520px){h1{font-size:21px}details.sec>summary{padding:16px;font-size:17.5px}.body{padding:0 16px 20px}}
+
+/* v2.1: 폭 확대 · 글꼴 · 라운드 2단계(8px/4px) · 컴포넌트 정리 */
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;letter-spacing:-.01em}
+.wrap{max-width:1040px}
+header.hero{padding:52px 0 16px}
+h1{font-size:30px;letter-spacing:-.02em}
+.key-banner,.glance,details.sec,.tw,pre.form,.co.danger{border-radius:8px}
+.btn{border-radius:6px;padding:6px 14px;font-size:13.5px}
+details.sec{margin:10px 0}
+details.sec>summary{padding:20px 24px;gap:16px}
+.body{padding:0 24px 26px}
+.glance{padding:4px 24px}
+/* 진행 단계: 회색 번호 상자·세로선 제거 → 숫자만 */
+.steps{border-left:0;padding:0;margin:8px 0 12px}
+.steps>li{grid-template-columns:28px 1fr;padding:12px 0;border-top:1px solid var(--line)}
+.steps>li:first-child{border-top:0}
+.steps>li::before{width:auto;height:auto;border:0;border-radius:0;background:none;display:block;color:var(--brand);font-size:15px;font-weight:800;line-height:1.55;place-items:initial}
+/* 칩·배지·회신 박스 */
+.reply{padding:4px 0 4px 16px;margin:16px 0}
+.reply-b{font-size:16px}
+.check svg{border-radius:4px}
+@media (max-width:520px){details.sec>summary{padding:16px}.body{padding:0 16px 20px}.glance{padding:4px 16px}h1{font-size:22px}}
+
+/* v2.2: 줄간격·위계 정리 */
+body{line-height:1.6}
+p{margin:6px 0}
+.body{font-size:15.5px}
+details.sec>summary{font-size:21px}
+.sub{margin-top:28px;padding-top:26px}
+.sub h3{font-size:18.5px;font-weight:800;margin:0 0 12px;letter-spacing:-.02em}
+.sn{font-size:18.5px}
+.body>p:first-child>b:only-child{font-weight:600}
+.sub>p>b:only-child{font-weight:600}
+.check{margin:8px 0}
+.check li{padding:3px 0}
+.steps .who{line-height:1.55}
+th,td{padding:9px 12px}
+.co{line-height:1.55}
+@media (max-width:520px){.body{font-size:15px}details.sec>summary{font-size:18px}.sub h3,.sn{font-size:17px}}
+
+/* v2.3: 더 스퀘어하게(4px) · 번호 표시 역할별 구분 */
+.key-banner,.glance,details.sec,.tw,pre.form,.co.danger,.btn{border-radius:4px}
+/* 섹션 번호(01)만 보라 */
+/* 소제목 번호: 진한 네모 배지 */
+.sn{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:3px;background:var(--ink);color:var(--card);font-size:13px;font-weight:700;min-width:0;align-self:center;flex:none}
+.sn::after{content:""}
+.sub h3{align-items:center;gap:10px}
+/* 진행 단계 번호: 회색 숫자 */
+.steps>li::before{color:var(--sub)}
+/* 한눈에 보기 번호: 본문색 */
+.todo li>span::before{color:var(--sub)}
+/* FAQ Q: 회색 */
+.faq .q{color:var(--sub)}
+@media (max-width:520px){.sn{width:20px;height:20px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -144,6 +239,28 @@ footer{color:var(--sub);font-size:13px;text-align:center;margin-top:28px}
   <div class="eyebrow">나인하이어 고객성공팀</div>
   <h1>그리팅 → 나인하이어 데이터 이관 안내</h1>
   <p class="lead">그리팅에서 사용하던 채용(포지션)·지원자 데이터를 나인하이어로 옮기는 과정을 안내합니다. 고객사에서는 이관 대상 채용(포지션)을 준비하고, 이관 후 적용할 설정을 회신해 주세요.</p>
+
+  <div class="key-banner">
+    <b>이관은 한 번만 진행됩니다.</b>
+    <p>이관이 진행되는 동안과 이관 이후에 그리팅에서 새로 접수된 지원자와 추가·변경된 데이터는 반영되지 않으며, 다시 이관할 수 없습니다. 나인하이어에서 포지션 설정, 지원자 모집, 지원자 관리 준비를 마쳐 그리팅을 더 이상 사용하지 않아도 되는 시점에 이관하는 것을 권장합니다.</p>
+  </div>
+
+  <section class="glance" aria-label="한눈에 보기">
+    <div class="g-row">
+      <div class="g-k">고객사가 할 일</div>
+      <div class="g-v"><ol class="todo">
+        <li><span>그리팅 관리자 계정 공유</span><em>가능한 빠르게</em></li>
+        <li><span>이관 대상 채용(포지션) 준비 (보관함 해제 · 채용 담당자 지정)</span><em>이관 실행 3일(업무일 기준) 전까지</em></li>
+        <li><span>나인하이어 작업 계정 초대 (support@ninehire.com)</span><em>이관 실행 3일(업무일 기준) 전까지</em></li>
+        <li><span>이관 후 설정값 회신 (파기 기한 · 접근 권한 · 태그 표시 여부)</span><em>이관 실행 3일(업무일 기준) 전까지</em></li>
+      </ol></div>
+    </div>
+    <div class="g-row">
+      <div class="g-k">회신 방법</div>
+      <div class="g-v">양식을 복사해 안내 받으신 메일로 회신해 주세요. <a href="#s3" data-open="s3">3. 고객사 결정 후 회신</a></div>
+    </div>
+  </section>
+
   <div class="toolbar">
     <button class="btn" id="expand" type="button">안내 모두 펼치기</button>
     <button class="btn" id="collapse" type="button">안내 모두 접기</button>
@@ -155,64 +272,22 @@ footer{color:var(--sub);font-size:13px;text-align:center;margin-top:28px}
   <summary><span class="num">1</span><span class="sec-title">진행 순서와 일정<span class="sec-hint">데이터 이관 작업 순서 및 나인하이어팀/고객사 역할 안내</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
   <div class="body">
     <ol class="steps">
-      <li><div><b>이관 안내<span class="tags"><span class="tag team">나인하이어팀</span></span></b><span class="who">준비 사항과 이관 범위를 안내합니다. (현재 자료)</span></div></li>
-      <li><div><b>예정일 1차 협의<span class="tags"><span class="tag cust">고객사</span><span class="tag team">나인하이어팀</span></span></b><span class="who">이관 예정일을 협의합니다.</span></div></li>
-      <li><div><b>준비 및 회신<span class="tags"><span class="tag cust">고객사</span></span></b><span class="who">이관에 필요한 그리팅 계정 공유, 이관 대상 채용(포지션) 설정, 이관 후 나인하이어 내 설정값 회신을 진행합니다.</span></div></li>
-      <li><div><b>사전 점검<span class="tags"><span class="tag team">나인하이어팀</span><span class="tag cust">고객사</span></span></b><span class="who">고객사의 이관 대상 설정을 나인하이어팀이 점검한 후 피드백을 드립니다. 필요 시 고객사에서 추가 조정을 진행합니다.</span></div></li>
-      <li><div><b>최종 일정 협의<span class="tags"><span class="tag cust">고객사</span><span class="tag team">나인하이어팀</span></span></b><span class="who">최종 이관일을 협의합니다.</span></div></li>
-      <li><div><b>이관 실행 및 완료<span class="tags"><span class="tag team">나인하이어팀</span></span></b><span class="who">데이터 이관을 진행합니다. (소요시간은 지원자 수에 비례하며, 대략 1시간 당 1천~1천 5백 명의 지원자 이관이 진행됩니다)</span></div></li>
-      <li><div><b>이관 결과 확인 및 종료<span class="tags"><span class="tag cust">고객사</span><span class="tag team">나인하이어팀</span></span></b><span class="who">이관 완료된 데이터를 고객사에서 점검하고, 이슈가 없다면 작업을 완전히 종료합니다.</span></div></li>
+      <li><div><b>이관 안내<span class="role">나인하이어팀</span></b><span class="who">준비 사항과 이관 범위를 안내합니다. (현재 자료)</span></div></li>
+      <li><div><b>예정일 1차 협의<span class="role">고객사 · 나인하이어팀</span></b><span class="who">이관 예정일을 협의합니다.</span></div></li>
+      <li><div><b>준비 및 회신<span class="role">고객사</span></b><span class="who">이관에 필요한 그리팅 계정 공유, 이관 대상 채용(포지션) 설정, 이관 후 나인하이어 내 설정값 회신을 진행합니다.</span></div></li>
+      <li><div><b>사전 점검<span class="role">나인하이어팀 · 고객사</span></b><span class="who">고객사의 이관 대상 설정을 나인하이어팀이 점검한 후 피드백을 드립니다. 필요 시 고객사에서 추가 조정을 진행합니다.</span></div></li>
+      <li><div><b>최종 일정 협의<span class="role">고객사 · 나인하이어팀</span></b><span class="who">최종 이관일을 협의합니다.</span></div></li>
+      <li><div><b>이관 실행 및 완료<span class="role">나인하이어팀</span></b><span class="who">데이터 이관을 진행합니다. (소요시간은 지원자 수에 비례하며, 대략 1시간 당 1천~1천 5백 명의 지원자 이관이 진행됩니다)</span>
+        <div class="inline-warn"><b>이관 중 유의 사항</b>이관 완료 안내를 받기 전까지 공유해 주신 그리팅 계정으로 접속하지 말아 주세요. 동시에 접속하면 오류가 발생해 이관 작업이 중단됩니다.</div></div></li>
+      <li><div><b>이관 결과 확인 및 종료<span class="role">고객사 · 나인하이어팀</span></b><span class="who">이관 완료된 데이터를 고객사에서 점검하고, 이슈가 없다면 작업을 완전히 종료합니다.</span></div></li>
     </ol>
-    <p>이관 착수일과 소요 기간은 고객사 준비 상황과 나인하이어팀의 업무 일정에 따라 조정될 수 있습니다.</p>
+    <p class="aside">이관 착수일과 소요 기간은 고객사 준비 상황과 나인하이어팀의 업무 일정에 따라 조정될 수 있습니다.</p>
   </div>
 </details>
 
 <!-- 2 -->
 <details class="sec" id="s2">
-  <summary><span class="num">2</span><span class="sec-title">이관 범위와 방식<span class="sec-hint">이관 대상/비대상, 이관 방식, 이관 형태 등에 대한 안내</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
-  <div class="body">
-    <div class="co warn"><svg><use href="#i-warn"/></svg><div>
-      <p><b>이관은 한 번만 진행됩니다.</b></p>
-      <p>이관 이후 그리팅에서 새로 접수된 지원자와 추가·변경된 데이터는 다시 이관할 수 없습니다. 나인하이어에서 포지션 설정, 지원자 모집, 지원자 관리 준비를 마쳐 그리팅을 더 이상 사용하지 않아도 되는 시점에 이관하는 것을 권장합니다.</p>
-    </div></div>
-
-    <div class="sub">
-      <h3><span class="sn">1</span>이관 대상과 처리 방식</h3>
-    <div class="tw"><table class="map">
-      <colgroup><col class="c1"><col class="c2"><col></colgroup>
-      <tr><th>항목</th><th>처리 방식</th><th>나인하이어에서의 결과</th></tr>
-      <tr><td>지원서 양식</td><td><span class="b new">새로 생성</span></td><td>기존 커스텀 질문 양식은 이관되지 않습니다. <b>이름·이메일·연락처·지원경로 4개 질문으로 새로 생성</b>됩니다.</td></tr>
-      <tr><td>기존 지원자의 지원 정보</td><td><span class="b chg">이관(형태 변경)</span></td><td>나인하이어 접수 정보 탭 내 <b>PDF 파일 형태</b>로 이관됩니다.</td></tr>
-      <tr><td>기존 지원자의 평가 내역</td><td><span class="b chg">이관(형태 변경)</span></td><td>단계별·평가자별·항목별 점수가 지원자별 <b>[자료함]에 [평가 내역] 항목</b>으로 저장됩니다.</td></tr>
-      <tr><td>공고</td><td><span class="b ok">이관</span></td><td>채용(포지션) 정보, 공고 내용, 채용(포지션) 단계가 이관됩니다. 단계 변경 사항은 아래 ‘채용(포지션) 단계와 합격 지원자’를 확인해 주세요.</td></tr>
-      <tr><td>지원자 기본 정보</td><td><span class="b ok">이관</span></td><td>이름·연락처·이메일·지원경로, 상태(진행 중·불합격·최종합격), 접수일, 불합격 사유가 이관됩니다.</td></tr>
-      <tr><td>지원자 지원 서류</td><td><span class="b ok">이관</span></td><td>이력서·경력기술서·포트폴리오·커스텀 첨부파일이 이관됩니다. 일부 파일은 제외될 수 있으므로 아래 ‘첨부 파일’을 확인해 주세요.</td></tr>
-      <tr><td>지원자 추천 정보 · 설문 응답</td><td><span class="b no">미이관</span></td><td>이관되지 않습니다.</td></tr>
-      <tr><td>지원자 메모 / 파일 저장소 · 퀵노트 · 메시지(연락 내역, 템플릿 포함)</td><td><span class="b no">미이관</span></td><td>이관되지 않습니다.</td></tr>
-      <tr><td>그 외 위에 기재되지 않은 항목</td><td><span class="b no">미이관</span></td><td>이관되지 않습니다.</td></tr>
-    </table></div>
-    </div>
-    <div class="sub">
-      <h3><span class="sn">2</span>채용(포지션) 단계와 합격 지원자</h3>
-    <ul>
-      <li>그리팅의 첫 번째 단계는 나인하이어에서 [접수] 단계로 표시됩니다. 나인하이어의 첫 단계와 단계명은 고정되어 있습니다.</li>
-      <li>그리팅의 첫 번째 단계와 마지막 단계 사이에 있는 단계는 기존 이름대로 이관됩니다.</li>
-      <li>그리팅의 마지막 채용 단계 다음에 [최종합격] 단계가 추가됩니다.</li>
-      <li>그리팅에서 최종합격 상태인 지원자는 나인하이어의 [최종합격] 단계에 위치합니다.</li>
-    </ul>
-    </div>
-    <div class="sub">
-      <h3><span class="sn">3</span>첨부 파일</h3>
-    <p>일부 첨부 파일은 이관 과정에서 제외될 수 있습니다. 다음 파일은 이관 대상에서 제외됩니다.</p>
-    <ul><li>그리팅에서 다운로드할 수 없는 파일</li><li>다운로드했지만 열리지 않는 파일</li><li>그리팅의 PDF 뷰어에서 표시되지 않는 PDF 파일</li></ul>
-    <p><b>어떤 파일이 제외되었는지 개별적으로 추적하기는 어렵습니다.</b></p>
-    </div>
-  </div>
-</details>
-
-<!-- 3 -->
-<details class="sec" id="s3">
-  <summary><span class="num">3</span><span class="sec-title">고객사 준비 체크리스트<span class="sec-hint">그리팅·나인하이어에서 준비할 것</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
+  <summary><span class="num">2</span><span class="sec-title">고객사 준비 사항<span class="sec-hint">그리팅·나인하이어에서 준비할 것</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
   <div class="body">
     <p><b>그리팅에서는 관리자 계정과 이관할 채용(포지션)을 준비하고, 나인하이어에서는 작업 계정을 초대해 주세요.</b></p>
     <div class="tw"><table>
@@ -220,13 +295,14 @@ footer{color:var(--sub);font-size:13px;text-align:center;margin-top:28px}
       <tr><td>1) 그리팅 관리자 계정 공유</td><td>가능한 빠르게</td><td>그리팅</td></tr>
       <tr><td>2) 이관 대상 채용(포지션) 준비 (보관함 해제 · 채용 담당자 지정)</td><td>이관 실행 3일(업무일 기준) 전까지</td><td>그리팅</td></tr>
       <tr><td>3) 나인하이어 작업 계정 초대 (support@ninehire.com)</td><td>이관 실행 3일(업무일 기준) 전까지</td><td>나인하이어</td></tr>
-      <tr><td>4) 이관 후 설정값 회신 (파기 기한 · 접근 권한 · 태그 표시 여부)</td><td>이관 실행 3일(업무일 기준) 전까지</td><td>메일 회신</td></tr>
     </table></div>
+    <p>파기 기한·접근 권한·태그 표시 여부는 <a href="#s3" data-open="s3">3. 고객사 결정 후 회신</a>에서 확인한 뒤 회신 양식으로 보내 주세요.</p>
 
     <div class="sub">
       <h3><span class="sn">1</span>그리팅 관리자 계정 공유</h3>
     <p>이관에 사용할 <b>기존 또는 새로운 그리팅 관리자(Admin) 계정의 ID와 비밀번호</b>를 <a href="mailto:pgkim0410@worxphere.ai">pgkim0410@worxphere.ai</a>로 공유해 주세요.</p>
     <p>나인하이어 담당자를 그리팅에 초대하는 것이 아니라, 이관에 사용할 관리자 계정을 공유해 주셔야 합니다.</p>
+    <p>나인하이어팀은 공유해 주신 계정으로 그리팅에 접속해 데이터를 가져옵니다. 그래서 <b>이 계정이 채용 담당자로 지정된 채용만 이관</b>됩니다. (아래 ‘2. 이관 대상 채용(포지션) 준비’ 참고)</p>
     </div>
     <div class="sub">
       <h3><span class="sn">2</span>이관 대상 채용(포지션) 준비</h3>
@@ -245,20 +321,16 @@ footer{color:var(--sub);font-size:13px;text-align:center;margin-top:28px}
     <p>데이터를 받을 나인하이어 워크스페이스에 <b>support@ninehire.com</b>을 <b>[관리자] 권한</b>으로 초대해 주세요.</p>
     <p>■ 초대 경로: [설정] → [사용자] → [사용자 초대하기]</p>
     </div>
-    <div class="sub">
-      <h3><span class="sn">4</span>이관 후 설정값 회신</h3>
-    <p>파기 기한·접근 권한·태그 표시 여부는 <a href="#s4" data-open="s4">4. 고객사 결정 후 회신 필요 사항</a>을 확인한 뒤 <a href="#s5" data-open="s5">5. 회신 양식</a>으로 회신해 주세요. (이관 실행 3일(업무일 기준) 전까지)</p>
-    </div>
   </div>
 </details>
 
-<!-- 4 -->
-<details class="sec" id="s4">
-  <summary><span class="num">4</span><span class="sec-title">고객사 결정 후 회신 필요 사항<span class="sec-hint">파기 기한 · 접근 권한 · 태그 — 미회신 시 기본값 적용</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
+<!-- 3 -->
+<details class="sec" id="s3">
+  <summary><span class="num">3</span><span class="sec-title">고객사 결정 후 회신<span class="sec-hint">파기 기한 · 접근 권한 · 태그 결정과 회신 양식 — 미회신 시 기본값 적용</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
   <div class="body">
     <div class="co note"><svg><use href="#i-info"/></svg><div>
       <p>이관 작업 후 나인하이어에 설정/표시될 부분에 대한 회신이 필요합니다.</p>
-      <p>아래 3개 항목을 확인한 뒤 <a href="#s5" data-open="s5">5. 회신 양식</a>을 이용해 이관 실행 3일(업무일 기준) 전까지 회신해 주세요.</p>
+      <p>아래 3개 항목을 확인한 뒤 맨 아래 <a href="#reply-form">회신 양식</a>을 이용해 이관 실행 3일(업무일 기준) 전까지 회신해 주세요.</p>
     </div></div>
 
     <div class="sub">
@@ -313,15 +385,9 @@ footer{color:var(--sub);font-size:13px;text-align:center;margin-top:28px}
       <h3><span class="sn">3</span>이관 포지션의 Greeting 태그</h3>
     <p>이관한 포지션을 구분할 수 있도록 <b>‘Greeting’ 포지션 태그</b>를 붙입니다. 태그 표시를 원하지 않으면 이관 전에 회신해 주세요. 별도 요청이 없으면 태그를 표시합니다.</p>
     </div>
-  </div>
-</details>
-
-<!-- 5 -->
-<details class="sec" id="s5">
-  <summary><span class="num">5</span><span class="sec-title">회신 양식<span class="sec-hint">복사해서 안내 받으신 메일로 회신</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
-  <div class="body">
-    <p>준비 사항과 설정값을 확인한 뒤 아래 양식을 복사해 <b>안내 받으신 메일로 회신</b>해 주세요.</p>
-    <p>파기 기준과 기간, 접근 권한은 <a href="#s4" data-open="s4">4. 고객사 결정 후 회신 필요 사항</a>의 결과와 기본값을 확인한 후 작성해 주세요.</p>
+    <div class="sub" id="reply-form">
+      <h3><span class="sn">4</span>회신 양식</h3>
+    <p>준비 사항과 위 설정값을 확인한 뒤 아래 양식을 복사해 <b>안내 받으신 메일로 회신</b>해 주세요.</p>
     <pre class="form" id="form">데이터 이관 준비 및 설정 회신
 
 [준비 사항]
@@ -340,17 +406,72 @@ Greeting 포지션 태그: 표시 / 표시하지 않음
 
 ※ 미완료 항목은 추가 회신 일정을 함께 알려 주시고, 가급적 빠르게 준비와 회신 부탁드립니다.</pre>
     <div class="copyrow"><button class="btn" id="copy" type="button">양식 복사</button></div>
+    </div>
   </div>
 </details>
 
-<!-- 6 -->
-<details class="sec" id="s6">
-  <summary><span class="num">6</span><span class="sec-title">자주 묻는 질문<span class="sec-hint">이관 시점 · 준비 누락 · 첨부 파일</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
+<!-- 4 -->
+<details class="sec" id="s4">
+  <summary><span class="num">4</span><span class="sec-title">이관 범위와 방식<span class="sec-hint">이관 대상/비대상, 이관 방식, 이관 형태 등에 대한 안내</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
   <div class="body">
+    <div class="sub">
+      <h3><span class="sn">1</span>이관 대상과 처리 방식</h3>
+    <div class="tw"><table class="map">
+      <colgroup><col class="c1"><col class="c2"><col></colgroup>
+      <tr><th>항목</th><th>처리 방식</th><th>나인하이어에서의 결과</th></tr>
+      <tr><td>지원자 기본 정보</td><td><span class="b ok">이관</span></td><td>이름·연락처·이메일·지원경로, 상태(진행 중·불합격·최종합격), 접수일, 불합격 사유가 이관됩니다.</td></tr>
+      <tr><td>지원자 지원 정보</td><td><span class="b chg">이관(형태 변경)</span></td><td>기본 정보 외 학력/경력 사항 등의 지원 정보는 나인하이어 접수 정보 탭 내 <b>PDF 파일 형태</b>로 이관됩니다.</td></tr>
+      <tr><td>지원자 지원 서류</td><td><span class="b ok">이관</span></td><td>이력서·경력기술서·포트폴리오·커스텀 첨부파일이 이관됩니다. 손상된 파일은 드물게 제외될 수 있으므로 아래 ‘첨부 파일’을 확인해 주세요.</td></tr>
+      <tr><td>지원자 평가 내역</td><td><span class="b chg">이관(형태 변경)</span></td><td>단계별·평가자별·항목별 점수가 지원자별 <b>[자료함]에 [평가 내역] 항목</b>으로 저장됩니다.</td></tr>
+      <tr><td>채용(포지션)</td><td><span class="b ok">이관</span></td><td>채용(포지션) 정보, 공고 내용, 채용(포지션) 단계가 이관됩니다. 단계 변경 사항은 아래 ‘채용(포지션) 단계와 합격 지원자’를 확인해 주세요.</td></tr>
+      <tr><td>지원서 양식</td><td><span class="b new">새로 생성</span></td><td>기존 커스텀 질문 양식은 이관되지 않습니다. <b>이름·이메일·연락처·지원경로 4개 질문으로 새로 생성</b>됩니다.</td></tr>
+      <tr><td>지원자 추천 정보 · 설문 응답</td><td><span class="b no">미이관</span></td><td>이관되지 않습니다.</td></tr>
+      <tr><td>지원자 메모 / 파일 저장소 · 퀵노트 · 메시지(연락 내역, 템플릿 포함)</td><td><span class="b no">미이관</span></td><td>이관되지 않습니다.</td></tr>
+      <tr><td>그 외 위에 기재되지 않은 항목</td><td><span class="b no">미이관</span></td><td>이관되지 않습니다.</td></tr>
+    </table></div>
+    </div>
+    <div class="sub">
+      <h3><span class="sn">2</span>채용(포지션) 단계와 합격 지원자</h3>
+    <ul>
+      <li>그리팅의 첫 번째 단계는 나인하이어에서 [접수] 단계로 표시됩니다. 나인하이어의 첫 단계와 단계명은 고정되어 있습니다.</li>
+      <li>그리팅의 첫 번째 단계와 마지막 단계 사이에 있는 단계는 기존 이름대로 이관됩니다.</li>
+      <li>그리팅의 마지막 채용 단계 다음에 [최종합격] 단계가 추가됩니다.</li>
+      <li>그리팅에서 최종합격 상태인 지원자는 나인하이어의 [최종합격] 단계에 위치합니다.</li>
+    </ul>
+    </div>
+    <div class="sub">
+      <h3><span class="sn">3</span>이관된 포지션의 위치</h3>
+    <p>이관된 포지션은 모두 나인하이어의 <b>[전체 포지션] → [보관함]</b>에 위치합니다. 일부 포지션만 골라 [관리 중인 포지션]으로 이관할 수는 없습니다.</p>
+    <p>이관이 끝나면 [보관함]에서 포지션별로 <b>[보관 취소하기]</b>를 클릭해 [관리 중인 포지션]으로 옮겨 주세요.</p>
+    </div>
+    <div class="sub">
+      <h3><span class="sn">4</span>첨부 파일</h3>
+    <p>자주 발생하는 일은 아니지만, <b>손상되었거나 유효하지 않은 첨부 파일</b>은 이관 과정에서 제외됩니다. 다음 파일이 이에 해당합니다.</p>
+    <ul><li>그리팅에서 다운로드할 수 없는 파일</li><li>다운로드했지만 열리지 않는 파일</li><li>그리팅의 PDF 뷰어에서 표시되지 않는 PDF 파일</li></ul>
+    <p>어떤 파일이 제외되었는지 개별적으로 추적하기는 어렵습니다.</p>
+    </div>
+  </div>
+</details>
+
+<!-- 5 -->
+<details class="sec" id="s5">
+  <summary><span class="num">5</span><span class="sec-title">유의 사항과 자주 묻는 질문<span class="sec-hint">이관 중·이후 유의 사항 · 이관 시점 · 준비 누락 · 첨부 파일</span></span><svg class="chev"><use href="#i-chev"/></svg></summary>
+  <div class="body">
+    <div class="sub">
+      <h3><span class="sn">1</span>이관 중·이후 유의 사항</h3>
+    <ul>
+      <li>이관 완료 안내를 받기 전까지 공유해 주신 그리팅 계정으로 접속하지 말아 주세요. 동시에 접속하면 오류가 발생해 이관 작업이 중단됩니다.</li>
+      <li>이관 중·이후에 그리팅에서 추가·변경한 채용과 지원자 데이터는 나인하이어에 반영되지 않으며, 다시 이관할 수 없습니다.</li>
+      <li>나인하이어는 이관 중에도 평소처럼 접속하고 사용하실 수 있습니다.</li>
+      <li>이관된 포지션은 [보관함]에 있으니, 이관 후 [보관 취소하기]로 [관리 중인 포지션]으로 옮겨 주세요.</li>
+    </ul>
+    </div>
+    <div class="sub">
+      <h3><span class="sn">2</span>자주 묻는 질문</h3>
     <div class="faq">
       <details>
         <summary><span class="q">Q</span>데이터 이관은 언제 실행하는 것이 가장 좋은가요?</summary>
-        <div class="a"><p>나인하이어에서 포지션 설정, 지원자 모집, 지원자 관리 준비를 마쳐 <b>그리팅을 더 이상 사용하지 않아도 되는 시점</b>에 이관하는 것이 가장 좋습니다.</p><p>이관은 한 번만 진행되기 때문에, 이관 이후 그리팅에서 추가·변경된 데이터는 반영할 수 없습니다.</p></div>
+        <div class="a"><p>나인하이어에서 포지션 설정, 지원자 모집, 지원자 관리 준비를 마쳐 <b>그리팅을 더 이상 사용하지 않아도 되는 시점</b>에 이관하는 것이 가장 좋습니다.</p><p>이관은 한 번만 진행되기 때문에, 이관 중·이후에 그리팅에서 추가·변경된 데이터는 반영할 수 없습니다.</p></div>
       </details>
       <details>
         <summary><span class="q">Q</span>이관 준비 과정에서 특히 신경 써야 할 부분이 있나요?</summary>
@@ -358,14 +479,19 @@ Greeting 포지션 태그: 표시 / 표시하지 않음
         <ul><li>[보관함]에서 꺼내어 [사용 중인 공고]로 분류하기</li><li>공유한 관리자 계정을 해당 채용의 [채용 담당자]로 지정하기</li></ul></div>
       </details>
       <details>
+        <summary><span class="q">Q</span>이관이 끝났는데 나인하이어에서 포지션이 보이지 않아요.</summary>
+        <div class="a"><p>이관된 포지션은 모두 <b>[전체 포지션] → [보관함]</b>에 있습니다. [보관함]에서 포지션별로 [보관 취소하기]를 클릭하면 [관리 중인 포지션]으로 옮길 수 있습니다.</p></div>
+      </details>
+      <details>
         <summary><span class="q">Q</span>일부 첨부 파일이 이관되지 않을 수 있다고 하는데, 왜 그런가요?</summary>
         <div class="a"><p>그리팅에서 다운로드할 수 없거나, 다운로드해도 열리지 않는 파일, 그리팅의 PDF 뷰어에서 표시되지 않는 PDF 파일은 <b>손상되었거나 유효하지 않은 파일</b>이라 이관 과정에서 제외됩니다.</p><p>어떤 파일이 제외되었는지는 개별적으로 추적하기 어렵습니다.</p></div>
       </details>
     </div>
+    </div>
   </div>
 </details>
 
-<footer>발행: 나인하이어 고객성공팀 · 문의: <a href="mailto:pgkim0410@worxphere.ai">pgkim0410@worxphere.ai</a></footer>
+<footer>문의: <a href="mailto:pgkim0410@worxphere.ai">pgkim0410@worxphere.ai</a></footer>
 </div>
 
 <script>
